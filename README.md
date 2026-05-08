@@ -31,6 +31,10 @@ Get a free key at **https://console.groq.com** → API Keys → Create API Key (
 
 > ⚠️ Never commit this file. It's already in `.gitignore`.
 
+### Note on Rate Limits
+
+The Groq API may return a `429` rate limit error due to token-per-minute limits. If this happens, wait a few seconds and retry — it resolves automatically.
+
 ### 4. Run the script
 
 ```bash

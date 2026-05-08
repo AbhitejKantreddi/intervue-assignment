@@ -54,15 +54,14 @@ Summary: Krishna has experience in ed-tech operations. He built a fraud detectio
 
 ### What worked / what didn't
 
-The output was too shallow for both transcripts.
+**What didn't work:**
+- Topics were just technology names, not descriptions of what was actually *discussed* in depth
+- Summaries had no mention of weaknesses or concerns — purely positive
+- Profile for Transcript 2 was vague ("Operations Manager") — missed the Project/Program Manager framing
+- No output structure enforced, so format was inconsistent between the two transcripts
+- Neither summary gave a meaningful impression of the candidate
 
--The model labeled the candidate simply as "Frontend Developer" without considering seniority signals like years of experience or architectural discussion, leading to loss of evaluation depth.
--Topics were generic (e.g., "React", "Angular") instead of describing what was actually discussed (like state    management strategies or architecture decisions).
--The summary lacked weaknesses or concerns, making it one-sided and less useful for evaluation.
--Output format was inconsistent — sometimes bullet points, sometimes plain text — making it hard to parse or compare across transcripts.
--For Transcript 2, the model defaulted to a vague "Operations Manager" label instead of identifying a more precise program/operations role.
-
-Change for v2: Add strict structure, enforce strengths + weaknesses, and require justification for role and seniority.
+**Change for v2:** Add explicit output structure, instruct the model to include both strengths and weaknesses, and require seniority justification.
 
 ---
 
@@ -135,19 +134,19 @@ Krishna is an operations and program management professional from an ed-tech bac
 
 ### What worked / what didn't
 
-Version 2 significantly improved output quality:
+**What worked:**
+- Topics became specific and meaningful — described what was discussed, not just what was mentioned
+- Candidate summary now included weaknesses and was balanced
+- Profile justification was evidence-based
+- Transcript 2 correctly identified a non-technical PM/ops profile
 
--Topics became specific and meaningful instead of generic technology names.
--The candidate summary became balanced, including both strengths and weaknesses.
--The profile section now included justification, making the output more analytical.
+**What didn't work:**
+- Output format was still inconsistent — markdown bold headers in one run, plain text in another
+- Free-text output is hard to parse reliably for programmatic use
+- Topics list sometimes too long (6+ items) even for short transcripts
+- Opening sentence of the summary occasionally felt generic
 
-However:
-
--Output format was still inconsistent (markdown vs plain text), which is not ideal for programmatic use.
--Topics list sometimes became too long for shorter transcripts.
--The model still occasionally defaulted to engineering framing, even for non-technical roles.
-
-Change for v3: Enforce strict JSON output, separate system/user instructions, and explicitly guide handling of non-technical roles.
+**Change for v3:** Switch to JSON output for consistency and parseability. Add a system instruction separate from the user prompt. Cap topics at 3–7. Add explicit guidance for non-technical roles so the model doesn't default to engineering framing.
 
 ---
 
@@ -232,18 +231,14 @@ Full transcripts (both tested separately).
 
 ### What worked / what didn't
 
-Version 3 handles both transcripts consistently and effectively:
+**What worked:**
+- JSON output is consistent across both transcripts — no more formatting variance between runs
+- System instruction / user message separation gives the model clearer role framing
+- Topics are specific and evidence-based for both transcripts
+- Transcript 2 correctly identified a non-technical PM role without any engineering framing
+- Summaries are balanced — strengths and weaknesses present, grounded in transcript evidence
+- The `--json` flag in the script exposes raw JSON for downstream programmatic use
 
--JSON format ensures consistent, machine-readable output
--Topics are specific and grounded in transcript evidence
--Profile correctly identifies non-technical roles without bias
--Summaries are balanced and realistic, including both strengths and concerns
-
-One remaining limitation:
-
--For short or fragmented transcripts, the model may still produce confident-sounding outputs with limited evidence
--Although instructed to note uncertainty, it does not always comply
-
-Future improvement:
-
--Add a confidence score or evidence-quality field to the JSON output to better reflect reliability of conclusions
+**What didn't work / remaining limitations:**
+- For very short or fragmented transcripts, the model may still produce confident-sounding output with thin evidence — the "note uncertainty" guideline is not always followed
+- A confidence score or "evidence quality" field in the JSON schema would help flag low-evidence outputs
