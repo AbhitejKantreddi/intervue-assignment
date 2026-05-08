@@ -9,7 +9,7 @@ A command-line script that takes an interview transcript as input and produces a
 ### 1. Clone / download this repo
 
 ```bash
-git clone <your-repo-url>
+git clone <https://github.com/AbhitejKantreddi/intervue-assignment.git>
 cd <repo-folder>
 ```
 
