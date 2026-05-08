@@ -24,8 +24,10 @@ pip install requests python-dotenv
 Create a `.env` file in the project root:
 
 ```
-GEMINI_API_KEY=your_api_key_here
+GROQ_API_KEY=your_api_key_here
 ```
+
+Get a free key at **https://console.groq.com** → API Keys → Create API Key (no credit card required).
 
 > ⚠️ Never commit this file. It's already in `.gitignore`.
 
@@ -43,10 +45,10 @@ python summarizer.py sample_transcript_assignment_2.txt --json
 
 ## LLM Provider and Model
 
-- **Provider:** Google AI Studio
-- **Model:** `gemini-2.0-flash`
+- **Provider:** Groq
+- **Model:** `llama-3.1-8b-instant`
 
-Gemini 2.0 Flash was chosen for its large context window (1M tokens), generous free tier (~1,500 requests/day), and fast inference — more than sufficient for full-length interview transcripts in a single API call.
+Groq was chosen for its fast inference and generous free tier (14,400 requests/day, 500,000 tokens/day for this model) — more than sufficient for full-length interview transcripts in a single API call. The model is accessed via Groq's OpenAI-compatible chat completions endpoint.
 
 ---
 
